@@ -35,6 +35,7 @@ const handleSignUp = async (req, res) => {
     }
 };
 
+// Function to log in an existing user
 const handleLogin = async (req, res) => {
     try {
         let { username, password } = req.body;
@@ -64,4 +65,14 @@ const handleLogin = async (req, res) => {
     }
 };
 
-module.exports = { handleSignUp, handleLogin };
+// Function to retrieve all users
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await userModel.getAllUsers();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+module.exports = { handleSignUp, handleLogin, getAllUsers };

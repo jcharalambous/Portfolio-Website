@@ -16,6 +16,7 @@ const createUser = (user) => {
     });
 };
 
+// Model function to log in an existing user
 const getUserByUsername = (username) => {
     return new Promise((resolve, reject) => {
         db.get(`SELECT * FROM users WHERE username = ?`, [username], (err, row) => {
@@ -28,4 +29,18 @@ const getUserByUsername = (username) => {
     });
 };
 
-module.exports = { createUser, getUserByUsername };
+// Model function to retrieve users
+const getAllUsers = async () => {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT * FROM users`;
+        db.all(sql, [], (err, users) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(users);
+            }
+        });
+    });
+};
+
+module.exports = { createUser, getUserByUsername, getAllUsers };
